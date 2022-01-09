@@ -20,7 +20,7 @@ controls.update();
 // Cloudy sky from here: https://opengameart.org/content/sky-box-sunny-day
 
 function createPathStrings(filename) {
-  const basePath = "../ref/skybox/";
+  const basePath = "./ref/skybox/";
   const baseFilename = basePath + filename;
   const fileType = ".png";
   const sides = ["front", "back", "top", "bottom", "right", "left"];
