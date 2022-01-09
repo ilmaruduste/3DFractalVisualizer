@@ -64,7 +64,7 @@ scene.add(parent);
 // Render the sponge
 var width = 80;
 var last = 2; 
-mengerSponge(-3 * width, -3 * width, 0, width, 0, last);
+mengerSponge(-3 * width, -3 * width, -3 * width, width, 0, last);
 requestAnimationFrame(render);
 
 function addLightAndHelper(x, y, z, lightIntensity) {
@@ -109,9 +109,9 @@ function createPanel() {
   geometrySettings.add(guiObj, 'rotationSpeedZ', 0, 0.2, 0.005).listen();
   
   // Translation
-  geometrySettings.add(guiObj, 'translationSpeedX', 0, 10, 0.01).listen();
-  geometrySettings.add(guiObj, 'translationSpeedY', 0, 10, 0.01).listen();
-  geometrySettings.add(guiObj, 'translationSpeedZ', 0, 10, 0.01).listen();
+  geometrySettings.add(guiObj, 'translationSpeedX', 0, 50, 1).listen();
+  geometrySettings.add(guiObj, 'translationSpeedY', 0, 50, 1).listen();
+  geometrySettings.add(guiObj, 'translationSpeedZ', 0, 50, 1).listen();
   
   // Wireframe setting
   // geometrySettings.add(parent.material, 'wireframe').listen();
@@ -140,7 +140,7 @@ function createGuiObject() {
     skyboxRotationSpeedY: 0.005,
     skyboxRotationSpeedZ: 0,
     translationSpeedX: 0,
-    translationSpeedY: 2,
+    translationSpeedY: 0,
     translationSpeedZ: 0,
     geometrySize: 7,
     resetCamera: function() {
@@ -243,7 +243,7 @@ function cube(i, j, k, x, y, z, width) {
 
   // Set the position of the cube
   cube.position.set(
-    x + ((i + 1) * width),
+   x + ((i + 1) * width),
     y + ((j + 1) * width),
     z + ((k + 1) * width)
   );
@@ -269,9 +269,9 @@ function render() {
   parent.rotation.x += guiObj.rotationSpeedX;
   parent.rotation.y += guiObj.rotationSpeedY;
   parent.rotation.z += guiObj.rotationSpeedZ;
-  parent.position.x = -7*Math.sin(t*guiObj.translationSpeedX);
-  parent.position.y = -7*Math.sin(t*guiObj.translationSpeedY);
-  parent.position.z = -7*Math.sin(t*guiObj.translationSpeedZ);
+  parent.position.x = -500*Math.sin(t*guiObj.translationSpeedX);
+  parent.position.y = -500*Math.sin(t*guiObj.translationSpeedY);
+  parent.position.z = -500*Math.sin(t*guiObj.translationSpeedZ);
   controls.update();
   renderer.render(scene, camera);
   
