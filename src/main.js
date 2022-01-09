@@ -12,6 +12,9 @@ var camera = new THREE.PerspectiveCamera(70, WIDTH/HEIGHT, 0.1, 10000);
 camera.position.z = 50;
 scene.add(camera);
 
+const controls = new THREE.OrbitControls( camera, renderer.domElement );
+controls.update();
+
 // var boxGeometry = new THREE.BoxGeometry(10, 10, 10);
 // var basicMaterial = new THREE.MeshBasicMaterial({color: 0x0095DD});
 // var cube = new THREE.Mesh(boxGeometry, basicMaterial);
@@ -37,6 +40,7 @@ function render() {
     // torus.scale.y = Math.abs(Math.sin(t));
     dodecahedron.rotation.y += 0.01;
     dodecahedron.position.y = -7*Math.sin(t*2);
+    controls.update();
     renderer.render(scene, camera);
 }
 render();
