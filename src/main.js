@@ -48,14 +48,15 @@ function createPanel() {
   folder1.add(dodecahedron.scale, 'x', 0, 10, 0.01).name('Width').listen();
   folder1.add(dodecahedron.scale, 'y', 0, 10, 0.01).name('Height').listen();
   folder1.add(dodecahedron.scale, 'z', 0, 10, 0.01).name('Length').listen();
-  folder1.add(guiObj, 'rotationSpeedX', 0, 3, 0.01).listen();
-  folder1.add(guiObj, 'rotationSpeedY', 0, 3, 0.01).listen();
-  folder1.add(guiObj, 'rotationSpeedZ', 0, 3, 0.01).listen();
+  folder1.add(guiObj, 'rotationSpeedX', 0, 0.2, 0.005).listen();
+  folder1.add(guiObj, 'rotationSpeedY', 0, 0.2, 0.005).listen();
+  folder1.add(guiObj, 'rotationSpeedZ', 0, 0.2, 0.005).listen();
   folder1.add(guiObj, 'translationSpeedX', 0, 10, 0.01).listen();
   folder1.add(guiObj, 'translationSpeedY', 0, 10, 0.01).listen();
   folder1.add(guiObj, 'translationSpeedZ', 0, 10, 0.01).listen();
   folder1.add(dodecahedron.material, 'wireframe').listen();
   folder1.add(guiObj, 'resetCamera').name('Reset Camera');
+  folder1.add(guiObj, 'resetGeometry').name('Reset Geometry');
   folder1.open();
   panel.open();
 }
@@ -73,6 +74,15 @@ function createGuiObject() {
       camera.position.x = 0;
       camera.position.y = 0;
       camera.position.z = 50;
+    },
+    resetGeometry: function() {
+      this.rotationSpeedX = 0,
+      this.rotationSpeedY = 0.01,
+      this.rotationSpeedZ = 0,
+      this.translationSpeedX = 0,
+      this.translationSpeedY = 2,
+      this.translationSpeedZ = 0,
+      this.geometrySize = 7
     }
   }
 }
@@ -80,8 +90,6 @@ function createGuiObject() {
 function render() {
     t += 0.01;
     requestAnimationFrame(render);
-    // cube.rotation.y += 0.01;
-    // torus.scale.y = Math.abs(Math.sin(t));
     dodecahedron.rotation.x += guiObj.rotationSpeedX;
     dodecahedron.rotation.y += guiObj.rotationSpeedY;
     dodecahedron.rotation.z += guiObj.rotationSpeedZ;
