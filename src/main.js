@@ -103,9 +103,9 @@ function createPanel() {
   // cameraSettings.open();
   
   // Rotation
-  skyboxSettings.add(guiObj, 'skyboxRotationSpeedX', 0, 0.1, 0.0005).listen().name('Rotation X');
-  skyboxSettings.add(guiObj, 'skyboxRotationSpeedY', 0, 0.1, 0.0005).listen().name('Rotation Y');
-  skyboxSettings.add(guiObj, 'skyboxRotationSpeedZ', 0, 0.1, 0.0005).listen().name('Rotation Z');
+  skyboxSettings.add(guiObj, 'skyboxRotationSpeedX', 0, 5, 0.01).listen().name('Rotation X');
+  skyboxSettings.add(guiObj, 'skyboxRotationSpeedY', 0, 5, 0.01).listen().name('Rotation Y');
+  skyboxSettings.add(guiObj, 'skyboxRotationSpeedZ', 0, 5, 0.01).listen().name('Rotation Z');
   
   
   panel.open();
@@ -133,7 +133,7 @@ function createGuiObject() {
       this.rotationSpeedY = 0.01,
       this.rotationSpeedZ = 0,
       this.skyboxRotationSpeedX = 0,
-      this.skyboxRotationSpeedY = 0.005,
+      this.skyboxRotationSpeedY = 0.05,
       this.skyboxRotationSpeedZ = 0,
       this.translationSpeedX = 0,
       this.translationSpeedY = 2,
@@ -148,9 +148,10 @@ function render() {
   requestAnimationFrame(render);
   
   // Skybox
-  skybox.rotation.x += guiObj.skyboxRotationSpeedX;
-  skybox.rotation.y += guiObj.skyboxRotationSpeedY;
-  skybox.rotation.z += guiObj.skyboxRotationSpeedZ;
+  var skyboxRotationCoef = 0.0001
+  skybox.rotation.x += skyboxRotationCoef*guiObj.skyboxRotationSpeedX;
+  skybox.rotation.y += skyboxRotationCoef*guiObj.skyboxRotationSpeedY;
+  skybox.rotation.z += skyboxRotationCoef*guiObj.skyboxRotationSpeedZ;
 
   // Geometry
   dodecahedron.rotation.x += guiObj.rotationSpeedX;
