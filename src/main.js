@@ -18,6 +18,7 @@ controls.update();
 // Skybox
 // https://codinhood.com/post/create-skybox-with-threejs
 // Cloudy sky from here: https://opengameart.org/content/sky-box-sunny-day
+// Space nebula from here: https://opengameart.org/content/space-nebulas-skybox
 
 function createPathStrings(filename) {
   const basePath = "./ref/skybox/";
@@ -67,6 +68,7 @@ function createPanel() {
   
   const geometrySettings = panel.addFolder('Geometry');
   const cameraSettings = panel.addFolder('Camera');
+  const skyboxSettings = panel.addFolder('Skybox');
   
   
   // folder1.add(dodecahedron.rotation, 'x', 0, 3.14 * 2);
@@ -95,10 +97,15 @@ function createPanel() {
   geometrySettings.add(guiObj, 'resetCamera').name('Reset Camera');
   geometrySettings.add(guiObj, 'resetGeometry').name('Reset Geometry');
   
-  geometrySettings.open();
+  // geometrySettings.open();
   
   cameraSettings.add(camera, 'fov', 30, 180).name('Field of Vision')
-  cameraSettings.open();
+  // cameraSettings.open();
+  
+  // Rotation
+  skyboxSettings.add(skybox.rotation, 'x', 0, 0.1, 0.0005).listen().name('Rotation X');
+  skyboxSettings.add(skybox.rotation, 'y', 0, 0.1, 0.0005).listen().name('Rotation Y');
+  skyboxSettings.add(skybox.rotation, 'z', 0, 0.1, 0.0005).listen().name('Rotation Z');
   
   
   panel.open();
@@ -133,10 +140,6 @@ function createGuiObject() {
 function render() {
   t += 0.01;
   requestAnimationFrame(render);
-  
-  // Skybox
-  skybox.rotation.x += 0.005;
-  skybox.rotation.y += 0.005;
   
   // Geometry
   dodecahedron.rotation.x += guiObj.rotationSpeedX;
