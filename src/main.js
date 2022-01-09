@@ -8,7 +8,7 @@ document.body.appendChild(renderer.domElement);
 
 var scene = new THREE.Scene();
 
-var camera = new THREE.PerspectiveCamera(70, WIDTH/HEIGHT, 0.1, 10000);
+var camera = new THREE.PerspectiveCamera(70, WIDTH/HEIGHT, 0.1, 20000);
 camera.position.z = 50;
 scene.add(camera);
 
@@ -43,7 +43,7 @@ function createMaterialArray(filename) {
 const skyboxImage = "skybox";
 const materialArray = createMaterialArray(skyboxImage);
 
-skyboxGeo = new THREE.BoxGeometry(1000, 1000, 1000);
+skyboxGeo = new THREE.BoxGeometry(10000, 10000, 10000);
 skybox = new THREE.Mesh(skyboxGeo, materialArray);
 scene.add(skybox);
 
@@ -67,15 +67,26 @@ var last = 2;
 mengerSponge(-3 * width, -3 * width, 0, width, 0, last);
 requestAnimationFrame(render);
 
-var light = new THREE.PointLight(0xFFFFFF);
-light.position.set(-10, 15, 50);
-scene.add(light);
+function addLightAndHelper(x, y, z, lightIntensity) {
+  var light = new THREE.PointLight(0xFFFFFF,lightIntensity);
+  light.position.set(x, y, z);
+  scene.add(light);
+  pointLightHelper = new THREE.PointLightHelper(light, 10);
+  scene.add(pointLightHelper);
+}
 
-var light = new THREE.PointLight(0xFFFFFF);
-light.position.set(10, -15, -50);
-scene.add(light);
+addLightAndHelper(0,0,0,0.05);
+addLightAndHelper(500,0,0,0.5);
+addLightAndHelper(-500,0,0,0.3);
+addLightAndHelper(0,500,0,0.5);
+addLightAndHelper(0,-500,0,0.3);
+addLightAndHelper(0,-500,500,0.3);
+addLightAndHelper(0,0,500,0.5);
+
 
 scene.background = new THREE.Color(0xFFFFFF);
+
+scene.add(new THREE.AxesHelper(1000));
 
 var t = 0;
 
@@ -86,11 +97,6 @@ function createPanel() {
   const geometrySettings = panel.addFolder('Geometry');
   const cameraSettings = panel.addFolder('Camera');
   const skyboxSettings = panel.addFolder('Skybox');
-  
-  
-  // folder1.add(dodecahedron.rotation, 'x', 0, 3.14 * 2);
-  // folder1.add(dodecahedron.rotation, 'y', 0, 3.14 * 2);
-  // folder1.add(dodecahedron.rotation, 'z', 0, 3.14 * 2);
   
   // Scale
   geometrySettings.add(parent.scale, 'x', 0, 10, 0.01).name('Width').listen();
@@ -114,10 +120,7 @@ function createPanel() {
   geometrySettings.add(guiObj, 'resetCamera').name('Reset Camera');
   geometrySettings.add(guiObj, 'resetGeometry').name('Reset Geometry');
   
-  // geometrySettings.open();
-  
   cameraSettings.add(camera, 'fov', 30, 180).name('Field of Vision')
-  // cameraSettings.open();
   
   // Rotation
   skyboxSettings.add(guiObj, 'skyboxRotationSpeedX', 0, 5, 0.01).listen().name('Rotation X');
@@ -161,6 +164,9 @@ function createGuiObject() {
 }
 
 
+
+// MengerSponge creation courtesy of cacabo:
+// https://github.com/cacabo/mengersponge/blob/master/three.js
 /**
  * Construct sponge
  * @param x       - starting x position for the sponge
