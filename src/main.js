@@ -40,7 +40,7 @@ function createMaterialArray(filename) {
   return materialArray;
 }
 
-const skyboxImage = "skybox";
+const skyboxImage = "cs";
 const materialArray = createMaterialArray(skyboxImage);
 
 skyboxGeo = new THREE.BoxGeometry(1000, 1000, 1000);
@@ -103,9 +103,9 @@ function createPanel() {
   // cameraSettings.open();
   
   // Rotation
-  skyboxSettings.add(skybox.rotation, 'x', 0, 0.1, 0.0005).listen().name('Rotation X');
-  skyboxSettings.add(skybox.rotation, 'y', 0, 0.1, 0.0005).listen().name('Rotation Y');
-  skyboxSettings.add(skybox.rotation, 'z', 0, 0.1, 0.0005).listen().name('Rotation Z');
+  skyboxSettings.add(guiObj, 'skyboxRotationSpeedX', 0, 0.1, 0.0005).listen().name('Rotation X');
+  skyboxSettings.add(guiObj, 'skyboxRotationSpeedY', 0, 0.1, 0.0005).listen().name('Rotation Y');
+  skyboxSettings.add(guiObj, 'skyboxRotationSpeedZ', 0, 0.1, 0.0005).listen().name('Rotation Z');
   
   
   panel.open();
@@ -116,6 +116,9 @@ function createGuiObject() {
     rotationSpeedX: 0,
     rotationSpeedY: 0.01,
     rotationSpeedZ: 0,
+    skyboxRotationSpeedX: 0,
+    skyboxRotationSpeedY: 0.005,
+    skyboxRotationSpeedZ: 0,
     translationSpeedX: 0,
     translationSpeedY: 2,
     translationSpeedZ: 0,
@@ -129,6 +132,9 @@ function createGuiObject() {
       this.rotationSpeedX = 0,
       this.rotationSpeedY = 0.01,
       this.rotationSpeedZ = 0,
+      this.skyboxRotationSpeedX = 0,
+      this.skyboxRotationSpeedY = 0.005,
+      this.skyboxRotationSpeedZ = 0,
       this.translationSpeedX = 0,
       this.translationSpeedY = 2,
       this.translationSpeedZ = 0,
@@ -141,6 +147,11 @@ function render() {
   t += 0.01;
   requestAnimationFrame(render);
   
+  // Skybox
+  skybox.rotation.x += guiObj.skyboxRotationSpeedX;
+  skybox.rotation.y += guiObj.skyboxRotationSpeedY;
+  skybox.rotation.z += guiObj.skyboxRotationSpeedZ;
+
   // Geometry
   dodecahedron.rotation.x += guiObj.rotationSpeedX;
   dodecahedron.rotation.y += guiObj.rotationSpeedY;
