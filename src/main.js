@@ -40,7 +40,7 @@ function createMaterialArray(filename) {
   return materialArray;
 }
 
-const skyboxImage = "cs";
+const skyboxImage = "skybox";
 const materialArray = createMaterialArray(skyboxImage);
 
 skyboxGeo = new THREE.BoxGeometry(1000, 1000, 1000);
