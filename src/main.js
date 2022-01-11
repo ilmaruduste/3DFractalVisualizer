@@ -272,6 +272,7 @@ function createGuiObject() {
  */
 function cube(i, j, k, x, y, z, width) {
   // create a cube of the passed in width
+  var selectedObject = scene.getObjectByName('fractalGeometry');
   var geometry = new THREE.BoxGeometry(width, width, width);
   var material = new THREE.MeshPhongMaterial({color: 0x0095DD});
   var cube = new THREE.Mesh(geometry, material);
@@ -284,7 +285,7 @@ function cube(i, j, k, x, y, z, width) {
   );
 
   // Add the cube to the screen
-  parent.add(cube);
+  selectedObject.add(cube);
 }
 
 
