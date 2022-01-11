@@ -59,13 +59,36 @@ var guiObj = createGuiObject();
 // Create the menger sponge and center it (kind of) on the page
 var parent = new THREE.Object3D();
 parent.position.set(0, 0, 0);
+parent.name = 'fractalGeometry';
 scene.add(parent);
 
 // Render the sponge
 var width = 80;
-var last = 2; 
-mengerSponge(-3 * width, -3 * width, -3 * width, width, 0, last);
+// var last = 2; 
+mengerSponge(-3 * width, -3 * width, -3 * width, width, 0, guiObj.fractalOrder);
 requestAnimationFrame(render);
+
+function generateMenger(newOrder){
+  // delete3DOBJ('fractalGeometry');
+  console.log("Generating Menger Fractal!");
+  // var width = 80;
+  var parent = new THREE.Object3D();
+  parent.position.set(0, 0, 0);
+  parent.name = 'fractalGeometry';
+  scene.add(parent);
+  mengerSponge(-3 * width, -3 * width, -3 * width, width, 0, newOrder);
+  // requestAnimationFrame(render);
+  render();
+}
+
+// generateMenger(guiObj.fractalOrder);
+
+function delete3DOBJ(objName){
+  console.log("Deleting Menger Fractal!");
+  var selectedObject = scene.getObjectByName(objName);
+  scene.remove( selectedObject );
+  render();
+}
 
 function addLightAndHelper(x, y, z, lightIntensity) {
   var light = new THREE.PointLight(0xFFFFFF,lightIntensity);
@@ -74,6 +97,7 @@ function addLightAndHelper(x, y, z, lightIntensity) {
   pointLightHelper = new THREE.PointLightHelper(light, 10);
   scene.add(pointLightHelper);
 }
+
 
 addLightAndHelper(0,0,0,0.05);
 addLightAndHelper(500,0,0,0.5);
@@ -98,6 +122,8 @@ function createPanel() {
   const cameraSettings = panel.addFolder('Camera');
   const skyboxSettings = panel.addFolder('Skybox');
   
+  geometrySettings.add(guiObj, 'fractalOrder', 1, 5, 1).name('Fractal Order');
+  
   // Scale
   geometrySettings.add(parent.scale, 'x', 0, 10, 0.01).name('Width').listen();
   geometrySettings.add(parent.scale, 'y', 0, 10, 0.01).name('Height').listen();
@@ -119,6 +145,8 @@ function createPanel() {
   // Reset buttons
   geometrySettings.add(guiObj, 'resetCamera').name('Reset Camera');
   geometrySettings.add(guiObj, 'resetGeometry').name('Reset Geometry');
+  geometrySettings.add(guiObj, 'deleteFractal').name('Delete Fractal Geometry');
+  geometrySettings.add(guiObj, 'generateMengerButton').name('Add Fractal Geometry');
   
   cameraSettings.add(camera, 'fov', 30, 180).name('Field of Vision')
   
@@ -133,6 +161,7 @@ function createPanel() {
 
 function createGuiObject() {
   return {
+    fractalOrder: 2,
     rotationSpeedX: 0,
     rotationSpeedY: 0.01,
     rotationSpeedZ: 0,
@@ -159,6 +188,12 @@ function createGuiObject() {
       this.translationSpeedY = 2,
       this.translationSpeedZ = 0,
       this.geometrySize = 7
+    },
+    generateMengerButton: function() {
+      generateMenger(this.fractalOrder);
+    },
+    deleteFractal: function() {
+      delete3DOBJ('fractalGeometry');
     }
   }
 }
