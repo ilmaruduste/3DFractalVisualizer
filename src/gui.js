@@ -63,27 +63,30 @@ function createPanel() {
       translationSpeedZ: 0,
       geometrySize: 7,
       resetCamera: function() {
-        camera.position.x = 0;
-        camera.position.y = 0;
-        camera.position.z = 50;
-      },
-      resetGeometry: function() {
-        this.rotationSpeedX = 0,
-        this.rotationSpeedY = 1,
-        this.rotationSpeedZ = 0,
-        this.skyboxRotationSpeedX = 0,
-        this.skyboxRotationSpeedY = 0.05,
-        this.skyboxRotationSpeedZ = 0,
-        this.translationSpeedX = 0,
-        this.translationSpeedY = 2,
-        this.translationSpeedZ = 0,
-        this.geometrySize = 7
-      },
-      generateMengerButton: function() {
-        generateMenger(this.fractalOrder);
-      },
-      deleteFractal: function() {
-        delete3DOBJ('fractalGeometry');
-      }
+          camera.position.x = 0;
+          camera.position.y = 0;
+          camera.position.z = 50;
+        },
+        resetGeometry: function() { 
+            this.scaleX = 1,
+            this.scaleY = 1,
+            this.scaleZ = 1,
+            this.rotationSpeedX = 0,
+            this.rotationSpeedY = 1,
+            this.rotationSpeedZ = 0,
+            this.skyboxRotationSpeedX = 0,
+            this.skyboxRotationSpeedY = 0.05,
+            this.skyboxRotationSpeedZ = 0,
+            this.translationSpeedX = 0,
+            this.translationSpeedY = 0,
+            this.translationSpeedZ = 0,
+            this.geometrySize = 7
+        },
+        generateMengerButton: function() {
+            generateMenger(this.fractalOrder);
+        },
+        deleteFractal: function() {
+            delete3DOBJ('fractalGeometry');
+        }
     }
   }
