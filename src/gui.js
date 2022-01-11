@@ -6,11 +6,12 @@ function createPanel() {
     const skyboxSettings = panel.addFolder('Skybox');
     
     geometrySettings.add(guiObj, 'fractalOrder', 1, 5, 1).name('Fractal Order');
-    
+    var selectedObject = scene.getObjectByName('fractalGeometry');
+
     // Scale
-    geometrySettings.add(parent.scale, 'x', 0, 10, 0.01).name('Width').listen();
-    geometrySettings.add(parent.scale, 'y', 0, 10, 0.01).name('Height').listen();
-    geometrySettings.add(parent.scale, 'z', 0, 10, 0.01).name('Length').listen();
+    geometrySettings.add(selectedObject.scale, 'x', 0, 10, 0.01).name('Width').listen();
+    geometrySettings.add(selectedObject.scale, 'y', 0, 10, 0.01).name('Height').listen();
+    geometrySettings.add(selectedObject.scale, 'z', 0, 10, 0.01).name('Length').listen();
     
     // Rotation
     geometrySettings.add(guiObj, 'rotationSpeedX', 0, 10, 0.1).listen();
