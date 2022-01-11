@@ -27,10 +27,6 @@ skybox = new THREE.Mesh(skyboxGeo, materialArray);
 scene.add(skybox);
 
 
-// Geometry
-var guiObj = createGuiObject();
-
-
 // Create the menger sponge and center it (kind of) on the page
 var parent = new THREE.Object3D();
 parent.position.set(0, 0, 0);
@@ -82,12 +78,18 @@ function render() {
   // Geometry
   var selectedObject = scene.getObjectByName('fractalGeometry');
 
+  // Scale
+  selectedObject.scale.x = guiObj.scaleX
+  selectedObject.scale.y = guiObj.scaleY
+  selectedObject.scale.z = guiObj.scaleZ
+
+  // Rotation
   var fractalRotationCoef = 0.01
   selectedObject.rotation.x += fractalRotationCoef*guiObj.rotationSpeedX;
   selectedObject.rotation.y += fractalRotationCoef*guiObj.rotationSpeedY;
   selectedObject.rotation.z += fractalRotationCoef*guiObj.rotationSpeedZ;
   
-  
+  // Translation
   var fractalTranslationCoef = 0.01
   selectedObject.position.x = -500*Math.sin(t*fractalTranslationCoef*guiObj.translationSpeedX);
   selectedObject.position.y = -500*Math.sin(t*fractalTranslationCoef*guiObj.translationSpeedY);

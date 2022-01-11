@@ -1,3 +1,5 @@
+var guiObj = createGuiObject();
+
 function createPanel() {
     const panel = new dat.GUI( {width: 310});
     
@@ -9,9 +11,9 @@ function createPanel() {
     var selectedObject = scene.getObjectByName('fractalGeometry');
 
     // Scale
-    geometrySettings.add(selectedObject.scale, 'x', 0, 10, 0.01).name('Width').listen();
-    geometrySettings.add(selectedObject.scale, 'y', 0, 10, 0.01).name('Height').listen();
-    geometrySettings.add(selectedObject.scale, 'z', 0, 10, 0.01).name('Length').listen();
+    geometrySettings.add(guiObj, 'scaleX', 0, 10, 0.01).name('Width').listen();
+    geometrySettings.add(guiObj, 'scaleY', 0, 10, 0.01).name('Height').listen();
+    geometrySettings.add(guiObj, 'scaleZ', 0, 10, 0.01).name('Length').listen();
     
     // Rotation
     geometrySettings.add(guiObj, 'rotationSpeedX', 0, 10, 0.1).listen();
@@ -47,6 +49,9 @@ function createPanel() {
   function createGuiObject() {
     return {
       fractalOrder: 2,
+      scaleX: 1,
+      scaleY: 1,
+      scaleZ: 1,
       rotationSpeedX: 0,
       rotationSpeedY: 1,
       rotationSpeedZ: 0,
